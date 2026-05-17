@@ -3,24 +3,46 @@ set -euo pipefail
 
 ROOT="business-os"
 
-dirs=(
-  "00-context"
-  "01-strategy"
-  "02-offers"
-  "03-marketing"
-  "04-website"
-  "05-sales"
-  "06-operations"
-  "07-sops"
-  "08-meetings"
-  "09-reports"
-  "10-prompts"
-  "11-ideas"
-  "12-archive"
+root_files=(
+  "00-START-HERE.md"
+  "BUSINESS-CONTEXT.md"
+  "DAILY-COMMAND-CENTRE.md"
+  "WEEKLY-REVIEW.md"
+  "MONTHLY-REVIEW.md"
 )
 
-for d in "${dirs[@]}"; do
-  mkdir -p "$ROOT/$d"
+# Each entry: "DIR|FILE1,FILE2,..."
+structure=(
+  "01-STRATEGY|BUSINESS-MODEL.md,POSITIONING.md,CUSTOMER-PROFILES.md,COMPETITOR-NOTES.md,90-DAY-PRIORITIES.md"
+  "02-OFFERS|OFFER-LADDER.md,MAIN-OFFER.md,OBJECTION-LIBRARY.md,PRICING-NOTES.md"
+  "03-MARKETING|BRAND-VOICE.md,CONTENT-PILLARS.md,LINKEDIN-SYSTEM.md,EMAIL-SYSTEM.md,CAMPAIGN-BUILDER.md,30-DAY-CONTENT-CALENDAR.md"
+  "04-WEBSITE|WEBSITE-AUDIT.md,HOMEPAGE-IMPROVEMENT-PLAN.md,SEO-CHECKLIST.md,AI-VISIBILITY-CHECKLIST.md,FAQ-STRUCTURE.md"
+  "05-SALES|LEAD-FOLLOW-UP-SYSTEM.md,SALES-CALL-PREP.md,PROPOSAL-STRUCTURE.md,FOLLOW-UP-EMAILS.md"
+  "06-OPERATIONS|OPERATIONS-MAP.md,TASK-DELEGATION.md,CLIENT-DELIVERY.md,BOTTLENECK-REVIEW.md"
+  "07-SOPS|SOP-TEMPLATE.md,CLIENT-ONBOARDING-SOP.md,CONTENT-PUBLISHING-SOP.md,WEEKLY-REVIEW-SOP.md"
+  "08-MEETINGS|MEETING-NOTES-TEMPLATE.md,MEETING-SUMMARY-PROMPT.md,ACTION-ITEM-TRACKER.md"
+  "09-REPORTS|WEEKLY-BUSINESS-REPORT.md,MARKETING-REPORT.md,SALES-PIPELINE-REVIEW.md"
+  "10-PROMPT-LIBRARY|DAILY-CEO-PROMPT.md,WEBSITE-AUDIT-PROMPT.md,CONTENT-REPURPOSE-PROMPT.md,SOP-CREATOR-PROMPT.md,SALES-FOLLOW-UP-PROMPT.md,MEETING-SUMMARY-PROMPT.md,DECISION-MAKING-PROMPT.md,WEEKLY-REVIEW-PROMPT.md"
+)
+
+mkdir -p "$ROOT"
+
+touch_if_missing() {
+  [ -e "$1" ] || : > "$1"
+}
+
+for f in "${root_files[@]}"; do
+  touch_if_missing "$ROOT/$f"
 done
 
-echo "Created $ROOT/ with ${#dirs[@]} subdirectories."
+for entry in "${structure[@]}"; do
+  dir="${entry%%|*}"
+  files="${entry#*|}"
+  mkdir -p "$ROOT/$dir"
+  IFS=',' read -ra file_list <<< "$files"
+  for f in "${file_list[@]}"; do
+    touch_if_missing "$ROOT/$dir/$f"
+  done
+done
+
+echo "Scaffolded $ROOT/ in $(pwd)"

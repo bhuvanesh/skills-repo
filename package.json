@@ -1,12 +1,14 @@
 {
   "name": "create-business-os",
   "version": "1.0.0",
-  "description": "Scaffold the /business-os directory structure.",
+  "description": "Scaffold the business-os template (folders + placeholder markdown files).",
   "bin": {
-    "create-business-os": "bin/create-business-os.js"
+    "create-business-os": "bin/create-business-os.js",
+    "install-onboarding-help": "bin/install-onboarding-help.js"
   },
   "files": [
-    "bin"
+    "bin",
+    "skills"
   ],
   "engines": {
     "node": ">=14"
