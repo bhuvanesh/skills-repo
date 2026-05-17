@@ -1,0 +1,15 @@
+{
+  "name": "create-business-os",
+  "version": "1.0.0",
+  "description": "Scaffold the /business-os directory structure.",
+  "bin": {
+    "create-business-os": "bin/create-business-os.js"
+  },
+  "files": [
+    "bin"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "license": "MIT"
+}
