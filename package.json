@@ -5,7 +5,8 @@
   "bin": {
     "create-business-os": "bin/create-business-os.js",
     "install-onboarding-help": "bin/install-onboarding-help.js",
-    "pull-business-context": "bin/pull-business-context.js"
+    "pull-business-context": "bin/pull-business-context.js",
+    "pull-claude-md": "bin/pull-claude-md.js"
   },
   "files": [
     "bin",
