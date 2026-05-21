@@ -31,10 +31,17 @@ Your job is to collect the answers and append them after each colon, in place, l
 
 2. **Walk the file top to bottom, section by section.** Don't dump every question at once — that's overwhelming. Take one `##` section at a time.
 
-3. **Ask short, conversational questions.** For each section:
-   - For closed-form fields with obvious options (e.g. business model, industry), use AskUserQuestion with 2-4 options.
-   - For open-ended fields (e.g. "Top 5 pains", "We are known for"), ask in plain text — let the user free-type. One question per turn for these.
-   - Group tightly related fields into one AskUserQuestion batch only when they're naturally answered together (e.g. business name + location + industry).
+3. **Choose the right question style per Label.** Three modes:
+
+   - **Closed-form (multi-choice)** — fields with a small obvious option set (business model, industry, buying role). Use AskUserQuestion with 2-4 options.
+   - **Open-ended with directional starters** — reflection fields where a tired user might freeze at a blank line: "Hidden pains", "Why customers pay", "Things to stop doing", "Common claims competitors make", "Words we should avoid", "Growth opportunities". Before asking, offer 3-5 short directional examples drawn from common patterns in business / marketing / sales / operations, framed clearly as thought starters not recommendations: *"Common angles here are X, Y, Z — which of these resonate, or what's yours?"* The user can pick one, riff off it, or ignore the suggestions entirely. Keep starters short (under ~10 words each) and generic to the domain — never invent claims about this specific business.
+   - **Open-ended plain** — fields that need the user's own facts, personal context, or specific lived experience that Claude can't usefully prompt for (business name, location, founder story, real customer quotes, the owner's actual emotional goals). Ask plainly, no scaffolding.
+
+   The scaffolding test: *would a tired thoughtful business owner freeze at this Label?* Scaffold when the field asks for patterns the broader business world has answers to. Don't scaffold when the answer is pure data, deeply personal, or obvious from what the user just answered nearby.
+
+   **Calibrate scaffolding once, then commit.** After the very first time you offer directional starters in a session, check in lightly: *"Were those examples useful, or would you rather I just ask the questions plain?"* If the user says skip / not helpful / wastes time, drop scaffolding entirely for the rest of the session and only ask open-ended questions plainly. If they engaged with the starters or said yes, keep scaffolding throughout. Only ask this calibration question once — don't keep checking in.
+
+   Group related fields into one AskUserQuestion batch only when they're naturally answered together (e.g. business name + location + industry).
 
 4. **Write answers in as you go** with the Edit tool. Don't batch everything to the end — update after each section so the user sees progress and can course-correct.
 

@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Week 1 — Business OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:         #FAFAF8;
+    --surface:    #F2F0EB;
+    --ink:        #111111;
+    --ink-2:      #2A2A2A;
+    --muted:      #6B6B6B;
+    --muted-2:    #9A9A9A;
+    --line:       #E5E2DB;
+    --line-soft:  #EEEBE4;
+    --code-bg:    #1A1A1A;
+    --code-fg:    #F5F2EC;
+
+    --sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --mono: 'Geist Mono', ui-monospace, Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  .page {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 5rem 1.5rem 6rem;
+  }
+
+  /* ─── hero ─── */
+
+  .kicker {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    margin: 0 0 1.5rem;
+  }
+  h1 {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: clamp(2.2rem, 5vw, 2.8rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.5rem;
+    color: var(--ink);
+  }
+  .lede {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0;
+    max-width: 34rem;
+  }
+
+  /* ─── sections ─── */
+
+  section {
+    margin-top: 4rem;
+  }
+  section h2 {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 1.5rem;
+  }
+  section h3 {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 1.4rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin: 0 0 0.75rem;
+    color: var(--ink);
+  }
+  p {
+    margin: 0 0 1rem;
+    color: var(--ink-2);
+  }
+  p:last-child { margin-bottom: 0; }
+
+  strong { font-weight: 600; color: var(--ink); }
+
+  code, .file {
+    font-family: var(--mono);
+    font-size: 0.84em;
+    background: var(--surface);
+    color: var(--ink);
+    padding: 0.05em 0.4em;
+    border-radius: 3px;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+
+  /* ─── files list ─── */
+
+  .files {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--line);
+  }
+  .files li {
+    display: grid;
+    grid-template-columns: 1.75rem 1fr auto;
+    gap: 1.25rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .files .idx {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--muted-2);
+    padding-top: 0.1rem;
+  }
+  .files .info { min-width: 0; }
+  .files .info .name {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    color: var(--ink);
+    word-break: break-all;
+    display: block;
+    margin-bottom: 0.35rem;
+  }
+  .files .info .purpose {
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    line-height: 1.45;
+    color: var(--muted);
+    margin: 0;
+  }
+  .files .time {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* ─── how-to ─── */
+
+  .ways {
+    display: grid;
+    gap: 2rem;
+  }
+  .way p { margin-bottom: 0.75rem; }
+  .way .pill {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    background: var(--surface);
+    padding: 0.2em 0.55em;
+    border-radius: 3px;
+    margin-left: 0.5rem;
+    vertical-align: 0.15em;
+  }
+  .codeblock {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    background: var(--code-bg);
+    color: var(--code-fg);
+    padding: 0.85rem 1.05rem;
+    border-radius: 6px;
+    margin: 1rem 0 0;
+    overflow-x: auto;
+    line-height: 1.5;
+  }
+  .codeblock .prompt { color: var(--muted-2); user-select: none; }
+
+  /* ─── done checks ─── */
+
+  .checks {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .checks li {
+    position: relative;
+    padding: 0.1rem 0 0.9rem 1.85rem;
+    color: var(--ink-2);
+  }
+  .checks li:last-child { padding-bottom: 0; }
+  .checks li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.45rem;
+    width: 0.85rem;
+    height: 0.85rem;
+    border: 1.5px solid var(--muted-2);
+    border-radius: 2px;
+  }
+
+  /* ─── rules ─── */
+
+  .rules {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .rules li {
+    padding: 0.55rem 0 0.55rem 1.1rem;
+    position: relative;
+    color: var(--ink-2);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .rules li:last-child { border-bottom: 0; }
+  .rules li::before {
+    content: "·";
+    position: absolute;
+    left: 0;
+    color: var(--muted-2);
+    font-weight: 600;
+  }
+
+  /* ─── next ─── */
+
+  .next {
+    margin-top: 4.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+  }
+  .next .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    background: var(--surface);
+    padding: 0.3em 0.7em;
+    border-radius: 999px;
+    margin-bottom: 1.1rem;
+  }
+  .next .status::before {
+    content: "";
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 999px;
+    background: var(--muted-2);
+  }
+  .next h3 { margin-bottom: 0.6rem; }
+  .next p { color: var(--muted); }
+
+  /* ─── footer ─── */
+
+  .colophon {
+    margin-top: 4rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted-2);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  /* ─── motion ─── */
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .kicker { animation: fadeUp 500ms cubic-bezier(.2,.6,.2,1) both; }
+  h1      { animation: fadeUp 600ms 80ms  cubic-bezier(.2,.6,.2,1) both; }
+  .lede   { animation: fadeUp 600ms 160ms cubic-bezier(.2,.6,.2,1) both; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+
+  /* ─── responsive ─── */
+
+  @media (max-width: 520px) {
+    .page { padding: 3rem 1.25rem 4rem; }
+    .files li { grid-template-columns: 1.5rem 1fr; }
+    .files .time { grid-column: 2; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- hero -->
+  <header>
+    <p class="kicker">Week 1 · Foundation</p>
+    <h1>Start here.</h1>
+    <p class="lede">
+      These files give Claude context about your business so its answers fit your
+      situation instead of being generic. Spend a few hours filling them in this
+      week. You'll get the time back many times over.
+    </p>
+  </header>
+
+  <!-- expectations -->
+  <section>
+    <h2>What to expect</h2>
+    <p>About <strong>3–5 hours total</strong>, split across two or three sittings. One sitting tends to get sloppy by the end.</p>
+    <p>You don't need to fill every field. If you don't know an answer, leave it blank or write <code>unknown</code> and come back later.</p>
+  </section>
+
+  <!-- files -->
+  <section>
+    <h2>The files</h2>
+    <ol class="files">
+      <li>
+        <div class="idx">01</div>
+        <div class="info">
+          <span class="name">00-START-HERE.md</span>
+          <p class="purpose">Quick orientation. Just read it.</p>
+        </div>
+        <div class="time">~5 min</div>
+      </li>
+      <li>
+        <div class="idx">02</div>
+        <div class="info">
+          <span class="name">BUSINESS-CONTEXT.md</span>
+          <p class="purpose">The most important file. Claude reads it on every request.</p>
+        </div>
+        <div class="time">20–30 min</div>
+      </li>
+      <li>
+        <div class="idx">03</div>
+        <div class="info">
+          <span class="name">CLAUDE.md</span>
+          <p class="purpose">How you want Claude to talk to you.</p>
+        </div>
+        <div class="time">~10 min</div>
+      </li>
+      <li>
+        <div class="idx">04</div>
+        <div class="info">
+          <span class="name">01-STRATEGY/BUSINESS-MODEL.md</span>
+          <p class="purpose">How the business actually makes money.</p>
+        </div>
+        <div class="time">30–45 min</div>
+      </li>
+      <li>
+        <div class="idx">05</div>
+        <div class="info">
+          <span class="name">01-STRATEGY/CUSTOMER-PROFILES.md</span>
+          <p class="purpose">Usually the biggest one. Use the customer's own words.</p>
+        </div>
+        <div class="time">45–60 min</div>
+      </li>
+      <li>
+        <div class="idx">06</div>
+        <div class="info">
+          <span class="name">01-STRATEGY/POSITIONING.md</span>
+          <p class="purpose">Easier after customer profiles, not before.</p>
+        </div>
+        <div class="time">30–45 min</div>
+      </li>
+      <li>
+        <div class="idx">07</div>
+        <div class="info">
+          <span class="name">01-STRATEGY/COMPETITOR-NOTES.md</span>
+          <p class="purpose">Include doing nothing, in-house, and cheaper tools as competitors too.</p>
+        </div>
+        <div class="time">~30 min</div>
+      </li>
+      <li>
+        <div class="idx">08</div>
+        <div class="info">
+          <span class="name">01-STRATEGY/90-DAY-PRIORITIES.md</span>
+          <p class="purpose">Save for last. It builds on everything above.</p>
+        </div>
+        <div class="time">~30 min</div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- how -->
+  <section>
+    <h2>How to fill them</h2>
+    <div class="ways">
+      <div class="way">
+        <h3>Guided by Claude<span class="pill">recommended</span></h3>
+        <p>Claude reads the file, asks you one section at a time, and writes your answers in. For open-ended questions, it offers a few examples to react to — and asks if those are helping. If they're not, it switches to plain questions.</p>
+        <div class="codeblock"><span class="prompt">$ </span>/onboarding-help BUSINESS-CONTEXT.md</div>
+      </div>
+      <div class="way">
+        <h3>On your own</h3>
+        <p>Open the file in your editor. Type after each <code>Label:</code> line. Skip what you don't know.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- done -->
+  <section>
+    <h2>When you're done</h2>
+    <p>You don't need every field filled. You're done when these three things are true:</p>
+    <ul class="checks">
+      <li>Claude can describe your business in one sentence without making things up.</li>
+      <li>The three 90-day priorities you wrote down feel like the right ones.</li>
+      <li>A new team member could read <code>BUSINESS-CONTEXT.md</code> and understand the business in ten minutes.</li>
+    </ul>
+  </section>
+
+  <!-- rules -->
+  <section>
+    <h2>A few rules</h2>
+    <ul class="rules">
+      <li>One file at a time. Don't jump around.</li>
+      <li>Short answers are usually enough.</li>
+      <li>Use your customer's own words, not your version of them.</li>
+      <li><code>unknown</code> is a valid answer.</li>
+      <li>Re-read each file once before you close it.</li>
+    </ul>
+  </section>
+
+  <!-- next -->
+  <section class="next">
+    <span class="status">Week 2 · being planned</span>
+    <h3>Next week</h3>
+    <p>We're still putting Week 2 together. Finish Week 1 first — it's the foundation everything else builds on.</p>
+  </section>
+
+  <footer class="colophon">
+    <span>Business OS</span>
+    <span>Week 1</span>
+  </footer>
+
+</div>
+</body>
+</html>
