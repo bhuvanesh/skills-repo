@@ -33,3 +33,6 @@ business-os/
 
 # Local scratch
 tmp/
+
+# Backup files from pull scripts
+*.bak
